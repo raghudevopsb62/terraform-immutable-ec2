@@ -8,7 +8,7 @@ resource "aws_instance" "od-instance" {
 
 resource "aws_spot_instance_request" "spot-instance" {
   count                  = var.SPOT_INSTANCE_COUNT
-  ami                    = data.aws_ami.ami.id
+  ami                    = "${var.COMPONENT}-${var.APP_VERSION}"
   instance_type          = var.SPOT_INSTANCE_TYPE
   wait_for_fulfillment   = true
   subnet_id              = element(data.terraform_remote_state.vpc.outputs.PRIVATE_SUBNETS_IDS, count.index + 1)
