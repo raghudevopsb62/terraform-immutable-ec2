@@ -14,9 +14,9 @@ if [ -f /etc/nginx/default.d/roboshop.conf ]; then
 fi
 
 COMPONENT=$(ls /home/roboshop/)
-sed -i -e 's/ENV/${var.ENV}/' /etc/systemd/system/${COMPONENT}.service
+sed -i -e 's/ENV/${var.ENV}/' /etc/systemd/system/\${COMPONENT}.service
 systemctl daemon-reload
-systemctl restart ${COMPONENT}
+systemctl restart \${COMPONENT}
 
 EOF
 }
@@ -38,9 +38,9 @@ if [ -f /etc/nginx/default.d/roboshop.conf ]; then
 fi
 
 COMPONENT=$(ls /home/roboshop/)
-sed -i -e 's/ENV/${var.ENV}/' /etc/systemd/system/${COMPONENT}.service
+sed -i -e 's/ENV/${var.ENV}/' /etc/systemd/system/\${COMPONENT}.service
 systemctl daemon-reload
-systemctl restart ${COMPONENT}
+systemctl restart \${COMPONENT}
 
 EOF
 }
