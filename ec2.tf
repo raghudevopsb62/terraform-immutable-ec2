@@ -31,7 +31,26 @@ resource "aws_launch_template" "template" {
   tag_specifications {
     resource_type = "instance"
     tags = {
-      Name = "${var.COMPONENT}-${var.ENV}"
+      Name        = "${var.COMPONENT}-${var.ENV}"
+      APP_VERSION = var.APP_VERSION
     }
   }
+  tags = {
+    Name        = "${var.COMPONENT}-${var.ENV}"
+    APP_VERSION = var.APP_VERSION
+  }
 }
+
+
+resource "aws_autoscaling_group" "asg" {
+  vpc_zone_identifier = data.terraform_remote_state.vpc.outputs.PRIVATE_SUBNETS_IDS
+  desired_capacity    = 1
+  max_size            = 1
+  min_size            = 1
+
+  launch_template {
+    id      = aws_launch_template.template.id
+    version = "$Latest"
+  }
+}
+
