@@ -33,6 +33,7 @@ resource "aws_launch_template" "template" {
     tags = {
       Name        = "${var.COMPONENT}-${var.ENV}"
       APP_VERSION = var.APP_VERSION
+      Monitor     = "yes"
     }
   }
   tags = {
